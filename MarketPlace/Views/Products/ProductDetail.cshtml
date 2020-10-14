@@ -1,0 +1,295 @@
+﻿@{
+    Layout = null;
+    ViewBag.Title = "Products Summary";
+
+    
+
+
+}
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - MarketPlace</title>
+    @Styles.Render("~/Content/css")
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+
+</head>
+
+
+
+
+<body style="margin:5px; padding:5px;  background: rgb(201,220,232); background: linear-gradient(90deg, rgba(201,220,232,1) 0%, rgba(77,140,179,1) 36%, rgba(0,212,255,1) 100%);" class="product-search-background">
+
+   
+
+    <div>
+
+        <div class="main-header" style="clear:both; height:70px">
+
+
+            <div class="row">
+                <div class="col-sm">
+                    <div style="margin-left:30px; margin-bottom:10px;"><img height="60" src="@Url.Content("~/Images/logo.png")" /></div>
+                </div>
+                <div class="col-sm">
+                    <div class="input-group mb-3" style="margin-top:15px">
+                        <div class="input-group-prepend">
+
+                            <select class="custom-select label-primary" id="slt-category">
+                                <option selected>Category</option>
+                                <option value="1">Mechanical</option>
+                                <option value="2">Electrical</option>
+                                <option value="3">Stationary</option>
+                                <option value="4">Furniture</option>
+                            </select>
+                        </div>
+                        <input type="text" class="form-control txt-prod-search" id="ProductName" value="" placeholder="Search...">
+                        <button style="margin-left:5px" id="btn-search-product" class="btn btn-primary" type="button"><i class="fa fa-search"></i></button>
+                    </div>
+                </div>
+                <div class="col-sm">
+                    <div style="float:right; width:100px"><img height="60" width="60" class="rounded-circle" src="@Url.Content("~/Images/sample.png")" alt="Profile pic" /></div>
+                </div>
+            </div>
+
+
+
+
+        </div>
+
+        <div>
+
+
+            <div class="row" style="background:#ffffff;">
+                <div class="col-12">
+                    <div style="color:darkblue; text-align:right;  background:#ffffff; font-size:14px; margin:0px; padding-left:35px;text-decoration:underline"><a href="/Search/SearchPage">Search Page</a></div>
+
+                </div>
+            </div>
+            <div class="row" style="background:#ffffff;">
+                <div style="font-weight:bold; color:darkblue; background:#ffffff; font-size:27px; margin:0px; padding-left:35px">Product Summary</div>
+            </div>
+            <div class="row" style="background:#ffffff; height:660px">
+
+
+
+
+                <div class="col-6" style="padding-left:40px; ">
+
+                    <table class="table table-condensed">
+                        <tr>
+                            <td colspan="2" style="font-weight:bold">DESCRIPTION</td>
+
+                        </tr>
+                        <tr>
+                            <td style="background:#DDDDDD;font-weight:bold">Manufacture</td>
+                            <td id="lbl-manufacture"></td>
+                        </tr>
+                        <tr>
+                            <td style="background:#DDDDDD; font-weight:bold">Series</td>
+                            <td id="lbl-series"></td>
+                        </tr>
+                        <tr>
+                            <td style="background:#DDDDDD;font-weight:bold">Model</td>
+                            <td id="lbl-model"></td>
+                        </tr>
+
+                        <tr>
+                            <td></td>
+                            <td></td>
+                        </tr>
+
+                    </table>
+
+                    <table class="table table-condensed">
+                        <tr>
+                            <td colspan="2" style="font-weight:bold">TYPE</td>
+
+                        </tr>
+                        <tr>
+                            <td style="background:#DDDDDD; font-weight:bold">User Type</td>
+                            <td id="lbl-usertype"></td>
+                        </tr>
+                        <tr>
+                            <td style="background:#DDDDDD; font-weight:bold">Application</td>
+                            <td id="lbl-application"></td>
+                        </tr>
+                        <tr>
+                            <td style="background:#DDDDDD; font-weight:bold">Mounting Location</td>
+                            <td id="lbl-mounting-location"></td>
+                        </tr>
+                        <tr>
+                            <td style="background:#DDDDDD; font-weight:bold">Accessories</td>
+                            <td id="lbl-accessories"></td>
+                        </tr>
+                        <tr>
+                            <td style="background:#DDDDDD; font-weight:bold">Model Year</td>
+                            <td id="lbl-model-year"></td>
+                        </tr>
+
+                        <tr>
+                            <td></td>
+                            <td></td>
+                        </tr>
+
+                    </table>
+
+                </div>
+
+                <div class="col-6" style="padding:6px; ">
+
+                    <table class="table table-condensed">
+                        <tr>
+                            <td colspan="5" style="font-weight:bold">TECHNICAL SPECIFICATION</td>
+
+                        </tr>
+                        <tr>
+                            <td style="background:#DDDDDD; font-weight:bold">AirFlow (CFM)</td>
+                            <td id="lbl-airflow"></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td style="background:#DDDDDD; font-weight:bold">Power (W)</td>
+                            <td style="background:#DDDDDD;font-weight:bold">Min</td>
+                            <td id="lbl-power-min"></td>
+                            <td style="background:#DDDDDD;font-weight:bold">Max</td>
+                            <td id="lbl-power-max"></td>
+                        </tr>
+                        <tr>
+                            <td style="background:#DDDDDD; font-weight:bold">Operating Voltage (VAC)</td>
+                            <td style="background:#DDDDDD;font-weight:bold">Min</td>
+                            <td id="lbl-oper-vol-min"></td>
+                            <td style="background:#DDDDDD;font-weight:bold">Max</td>
+                            <td id="lbl-oper-vol-max"></td>
+                        </tr>
+                        <tr>
+                            <td style="background:#DDDDDD; font-weight:bold">Fan speed (RPM)</td>
+                            <td style="background:#DDDDDD;font-weight:bold">Min</td>
+                            <td id="lbl-fan-speed-min"></td>
+                            <td style="background:#DDDDDD; font-weight:bold">Max</td>
+                            <td  id="lbl-fan-speed-max"></td>
+                        </tr>
+                        <tr>
+                            <td style="background:#DDDDDD;font-weight:bold">Number of fan speeds</td>
+                            <td id="lbl-num-fan-speed"></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td style="background:#DDDDDD;font-weight:bold">Sound at max speed (dBA)</td>
+                            <td id="lbl-sound-max-speed"></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td style="background:#DDDDDD; font-weight:bold">Fan sweep diameter (in)</td>
+                            <td id="lbl-fan-swap-diameter"></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td style="background:#DDDDDD; font-weight:bold">Height (in)</td>
+                            <td style="background:#DDDDDD; font-weight:bold">Min</td>
+                            <td id="lbl-height"></td>
+                            <td style="background:#DDDDDD;font-weight:bold ">Max</td>
+                            <td id="lbl-height-max">20</td>
+                        </tr>
+                        <tr>
+                            <td style="background:#DDDDDD;font-weight:bold">Weight (lbs)</td>
+                            <td id="lbl-weight"></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+
+
+
+
+            <footer>
+                <p>&copy; @DateTime.Now.Year - MarketPlace</p>
+            </footer>
+        </div>
+
+
+    </div>
+
+
+
+
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryui")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/custom")
+
+
+    <script>
+
+       
+
+        function retrieve_url_populate() {
+            //Get passed paramenter using javascript
+            const queryString = window.location.search;
+            const urlParams = new URLSearchParams(queryString);
+            const pid = urlParams.get('pid')
+
+            //ajax manipulation
+            $.ajax({
+                url: "/Products/GetProductProductDetailJson/",
+                type: "POST",
+                dataType: "json",
+                data: { pid: pid },
+                success: function (data) {
+
+
+                    console.log(data);
+
+                    $("#lbl-series").text(data[0].Series);
+                    $("#lbl-model").text(data[0].Fan_Speed_Max);
+                    $("#lbl-usertype").text(data[0].Fan_Speed_Max);
+                    $("#lbl-application").text(data[0].Application);
+                    $("#lbl-mounting-location").text(data[0].Mounting_Location);
+                    $("#lbl-accessories").text(data[0].Accessories);
+                    $("#lbl-model-year").text(data[0].Model_Year);
+                    $("#lbl-airflow").text(data[0].Airflow);
+                    $("#lbl-fan-speed-max").text(data[0].Fan_Speed_Max);
+                    $("#lbl-fan-speed-min").text(data[0].Fan_Speed_Min);
+                    $("#lbl-fan-swap-diameter").text(data[0].Fan_Sweep_Diameter);
+                    $("#lbl-sound-max-speed").text(data[0].Sound_Max_Speed);
+                    $("#lbl-num-fan-speed").text(data[0].Airflow);
+                    $("#lbl-fan-swap-diamete").text(data[0].Fan_Sweep_Diameter);
+                    $("#lbl-weight").text(data[0].Weight);
+                    $("#lbl-height").text(data[0].Height);
+                    $("#lbl-oper-vol-min").text(data[0].Operating_Voltage_Min);
+                    $("#lbl-oper-vol-max").text(data[0].Operating_Voltage_Max);
+                    $("#lbl-power-max").text(data[0].Power_Max);
+                    $("#lbl-power-min").text(data[0].Power_Min);
+                    $("#lbl-manufacture").text(data[0].ModelName);
+                  
+
+                }
+            })
+        }
+
+        setTimeout(retrieve_url_populate, 1000);
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,268 @@
+﻿@{
+    Layout = null;
+    ViewBag.Title = "Compare";
+
+
+
+
+}
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - MarketPlace</title>
+    @Styles.Render("~/Content/css")
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+
+</head>
+
+
+
+
+<body style="margin:5px; padding:5px;  background: rgb(201,220,232); background: linear-gradient(90deg, rgba(201,220,232,1) 0%, rgba(77,140,179,1) 36%, rgba(0,212,255,1) 100%);" class="product-search-background">
+
+
+
+    <div>
+
+        <div class="main-header" style="clear:both; height:70px">
+
+
+            <div class="row">
+                <div class="col-sm">
+                    <div style="margin-left:30px; margin-bottom:10px;"><img height="60" src="@Url.Content("~/Images/logo.png")" /></div>
+                </div>
+                <div class="col-sm">
+                    <div class="input-group mb-3" style="margin-top:15px">
+                        <div class="input-group-prepend">
+
+                            <select class="custom-select label-primary" id="slt-category">
+                                <option selected>Category</option>
+                                <option value="1">Mechanical</option>
+                                <option value="2">Electrical</option>
+                                <option value="3">Stationary</option>
+                                <option value="4">Furniture</option>
+                            </select>
+                        </div>
+                        <input type="text" class="form-control txt-prod-search" id="ProductName" value="" placeholder="Search...">
+                        <button style="margin-left:5px" id="btn-search-product" class="btn btn-primary" type="button"><i class="fa fa-search"></i></button>
+                    </div>
+                </div>
+                <div class="col-sm">
+                    <div style="float:right; width:100px"><img height="60" width="60" class="rounded-circle" src="@Url.Content("~/Images/sample.png")" alt="Profile pic" /></div>
+                </div>
+            </div>
+
+
+
+
+        </div>
+
+        <div>
+
+            <div class="row" style="background:#ffffff;">
+                <div class="col-12" style="margin-left:20px">
+                    <div style="margin-bottom:3px;border-bottom:1px solid #F8F8F8; border-bottom:7px ">
+
+                        <span style="font-weight:bold">Category ></span>
+                        <span>Fan ></span>
+                        <span>Compare</span>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row" style="background:#ffffff;">
+                <div class="col-12">
+                    <div style="color:darkblue; text-align:right;  background:#ffffff; font-size:14px; margin:0px; padding-left:35px;text-decoration:underline"><a href="/Login/Login">Logout</a></div>
+
+                </div>
+            </div>
+            <div class="row" style="background:#ffffff;">
+                <div style="font-weight:bold; color:darkblue; background:#ffffff; font-size:27px; margin:0px; padding-left:35px">Product Comparison</div>
+            </div>
+            <div class="row" style="background:#ffffff; height:690px" id="div-compare-target">
+
+
+
+                <div class="col-3" style="padding-left:40px; ">
+
+                    <table class="table table-condensed">
+                        <tr>
+                            <td colspan="2" style="font-weight:bold"><div style="height:180px; width:180px; border:1px solid #DDDDDD"></div></td>
+
+                        </tr>
+                        <tr>
+                            <td style="background:#DDDDDD;font-weight:bold">Manufacture</td>
+
+                        </tr>
+                        <tr>
+                            <td style="background:#DDDDDD; font-weight:bold">Series</td>
+
+                        </tr>
+                        <tr>
+                            <td style="background:#DDDDDD;font-weight:bold">Model</td>
+
+                        </tr>
+                        <tr>
+                            <td style="background:#DDDDDD;font-weight:bold">TYPE</td>
+
+                        </tr>
+                        <tr>
+                            <td style="background:#DDDDDD; font-weight:bold">Use Type</td>
+
+                        </tr>
+                        <tr>
+                            <td style="background:#DDDDDD;font-weight:bold">Application</td>
+
+                        </tr>
+                        <tr>
+                            <td style="background:#DDDDDD;font-weight:bold">Mounting Location</td>
+
+                        </tr>
+                        <tr>
+                            <td style="background:#DDDDDD; font-weight:bold">Accessories</td>
+
+                        </tr>
+                        <tr>
+                            <td style="background:#DDDDDD;font-weight:bold">Model Year</td>
+
+                        </tr>
+                        <tr>
+                            <td style="background:#DDDDDD;font-weight:bold">TECHNICAL SPECIFICATION</td>
+
+                        </tr>
+
+
+
+                    </table>
+
+
+
+                </div>
+
+               
+
+
+
+
+            </div>
+
+
+
+
+
+            <footer>
+                <p>&copy; @DateTime.Now.Year - MarketPlace</p>
+            </footer>
+        </div>
+
+
+    </div>
+
+
+
+
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryui")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/custom")
+
+
+    <script>
+
+
+        function domagic(){
+
+            const queryString = window.location.search;
+            const urlParams = new URLSearchParams(queryString);
+          
+            const
+                keys = urlParams.keys(),
+                values = urlParams.values(),
+                entries = urlParams.entries();
+
+       
+            var arr = "";
+            for (const value of values) {
+                arr = arr + value;
+            }
+
+            var arr = arr.split(''); // empty string separator
+
+            //ajax manipulation
+            $.ajax({
+                url: "/Products/GetAllProductProductDetailJson/",
+                type: "POST",
+                dataType: "json",
+                data: {arr:arr  },
+                success: function (data) {
+
+                    console.log(data);
+                    for (var i = 0; i < data.length; i++) {
+                        var columns = "<div class='col-3'> <table class='table table-condensed'> <tr> <td align='center' colspan='2'><img  class='img-thumbnail' style='height:180px;width:210px'  src='/Images/Products/" + data[i].Picture + "' /> </td> </tr> <tr> <td align='center' >manufacture</td> </tr> <tr> <td align='center'>" + data[i].Series + "</td> </tr> <tr> <td align='center'>" + data[i].ModelName+"</td> </tr> <tr> <td style='background:#DDDDDD;font-weight:bold'>&nbsp;</td> </tr> <tr> <td align='center' style=''>usertype</td> </tr> <tr> <td align='center' >" + data[i].Application + "</td> </tr> <tr> <td align='center'>" + data[i].Mounting_Location + "</td> </tr> <tr> <td align='center'>" + data[i].Accessories +"</td> </tr> <tr> <td align='center'>" + data[i].Model_Year+"</td> </tr> <tr> <td style='background:#DDDDDD;font-weight:bold'>&nbsp;</td> </tr> </table> </div>";
+                        $("#div-compare-target").append(columns);
+                    }
+                }
+            })
+
+            //End of ajax
+
+        }
+        
+
+        function retrieve_url_populate() {
+            //Get passed paramenter using javascript
+            const queryString = window.location.search;
+            const urlParams = new URLSearchParams(queryString);
+            const pid = urlParams.get('pid')
+
+            //ajax manipulation
+            $.ajax({
+                url: "/Products/GetProductProductDetailJson/",
+                type: "POST",
+                dataType: "json",
+                data: { pid: pid },
+                success: function (data) {
+
+
+                    console.log(data);
+
+                    $("#lbl-series").text(data[0].Series);
+                    $("#lbl-model").text(data[0].Fan_Speed_Max);
+                    $("#lbl-usertype").text(data[0].Fan_Speed_Max);
+                    $("#lbl-application").text(data[0].Application);
+                    $("#lbl-mounting-location").text(data[0].Mounting_Location);
+                    $("#lbl-accessories").text(data[0].Accessories);
+                    $("#lbl-model-year").text(data[0].Model_Year);
+                    $("#lbl-airflow").text(data[0].Airflow);
+                    $("#lbl-fan-speed-max").text(data[0].Fan_Speed_Max);
+                    $("#lbl-fan-speed-min").text(data[0].Fan_Speed_Min);
+                    $("#lbl-fan-swap-diameter").text(data[0].Fan_Sweep_Diameter);
+                    $("#lbl-sound-max-speed").text(data[0].Sound_Max_Speed);
+                    $("#lbl-num-fan-speed").text(data[0].Airflow);
+                    $("#lbl-fan-swap-diamete").text(data[0].Fan_Sweep_Diameter);
+                    $("#lbl-weight").text(data[0].Weight);
+                    $("#lbl-height").text(data[0].Height);
+                    $("#lbl-oper-vol-min").text(data[0].Operating_Voltage_Min);
+                    $("#lbl-oper-vol-max").text(data[0].Operating_Voltage_Max);
+                    $("#lbl-power-max").text(data[0].Power_Max);
+                    $("#lbl-power-min").text(data[0].Power_Min);
+
+                }
+            })
+
+            //End of ajax
+        }
+
+        setTimeout(domagic, 1000);
+    </script>
+
+
+</body>
+
+</html>

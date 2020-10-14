@@ -1,0 +1,349 @@
+﻿@{
+    Layout = null;
+    ViewBag.Title = "Products";
+
+
+}
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - MarketPlace</title>
+    @Styles.Render("~/Content/css")
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+
+</head>
+
+
+
+
+<body style="margin:5px; padding:5px;  background: rgb(201,220,232); background: linear-gradient(90deg, rgba(201,220,232,1) 0%, rgba(77,140,179,1) 36%, rgba(0,212,255,1) 100%);" class="product-search-background">
+
+  
+
+    <div>
+
+        <div class="main-header" style="clear:both; height:70px">
+
+
+            <div class="row">
+                <div class="col-sm">
+                    <div style="margin-left:30px; margin-bottom:10px;"><img height="60" src="@Url.Content("~/Images/logo.png")" /></div>
+                </div>
+                <div class="col-sm">
+                    <div class="input-group mb-3" style="margin-top:15px">
+                        <div class="input-group-prepend">
+
+                            <select class="custom-select label-primary" id="slt-category">
+                                <option selected>Category</option>
+                                <option value="1">Mechanical</option>
+                                <option value="2">Electrical</option>
+                                <option value="3">Stationary</option>
+                                <option value="4">Furniture</option>
+                            </select>
+                        </div>
+                        <input type="text" class="form-control" id="ProductName" value="" placeholder="Search...">
+                        <button style="margin-left:5px" id="loadjson" class="btn btn-primary" type="button"><i class="fa fa-search"></i></button>
+                    </div>
+                </div>
+                <div class="col-sm">
+                    <div style="float:right; width:100px"><img height="60" width="60" class="rounded-circle" src="@Url.Content("~/Images/sample.png")" alt="Profile pic" /></div>
+                </div>
+            </div>
+
+        </div>
+
+        <div>
+            <div class="row" style="background:#ffffff; height:660px">
+                <div class="col-3" style="border-right: 1px solid #DEDEDE;">
+
+                    <div class="row" style="background:#F8F8F8; padding:5px; border:1px solid #DEDEDE">
+                        <div class="col-sm" style="padding-top:7px">
+                            <span style="font-weight:bold"> Search:</span>
+                        </div>
+                        <div class="col-sm" style="padding-top:5px">
+                            <button style="padding:3px 10px; background:#5BC0DE; font-weight:bold; border:1px solid #ffffff; border-radius:0px; color:#fff" class="btn btn-secondary btn-sm" type="button">Clear</button>
+                        </div>
+                        <div class="col-sm" style="padding-top:5px">
+                            <button style="padding:3px 10px; background:#5BC0DE; font-weight:bold; border:1px solid #ffffff; border-radius:0px; color:#fff" class="btn btn-secondary btn-sm" id="" type="button">Save</button>
+                        </div>
+                    </div>
+
+                    <div class="row" style="background:#F8F8F8; padding:5px;  border:1px solid #DEDEDE">
+
+                        <div class="col-sm" style="padding-top:7px">
+                            <span style="font-weight:bold"> Compare:</span>
+                        </div>
+                        <div class="col-sm" style="padding-top:5px">
+                            <button style="padding:3px 10px; background:#5BC0DE; font-weight:bold; border:1px solid #ffffff; border-radius:0px; color:#fff" class="btn btn-secondary btn-sm" type="button">Test</button>
+                        </div>
+                        <div class="col-sm" style="padding-top:5px">
+                            <button style="padding:3px 10px; background:#5BC0DE; font-weight:bold; border:1px solid #ffffff;  border-radius:0px; color:#fff" class="btn btn-secondary btn-sm" id="testbtn" type="button">Compare</button>
+                        </div>
+
+
+
+                    </div>
+
+                    <!-- second row-->
+                    <div class="row" style="background:#F8F8F8; padding:5px;  border:1px solid #DEDEDE">
+
+                        <div class="col-sm text-center" style="padding-top:5px;">
+                            <span style="font-weight:bold">Product</span>
+                        </div>
+
+                    </div>
+
+                    <!-- third row-->
+                    <div class="row" style="background:#F8F8F8; padding:5px;  border:1px solid #DEDEDE">
+
+                        <div class="col-sm" style="padding-top:5px;">
+                            <span style="font-weight:bold">Product Type</span>
+                        </div>
+
+                    </div>
+
+                    <!-- second row-->
+                    <div class="row" style="background:#F8F8F8; padding:5px;  border:1px solid #DEDEDE">
+
+                        <div class="form-inline input-group-sm" style="margin-left:15px">
+                            <div class="form-group mb-2">
+                                <label for="staticEmail2" class="sr-only"> <span style="font-weight:bold">Product</span></label>
+                                <span style="font-weight:bold">Model Year</span>
+                            </div>
+                            <div class="form-group mb-2" style="margin-left:12px">
+                                <label for="" class="sr-only"></label>
+                                <input type="text" class="form-control" style="width:60px">
+                            </div>
+                            <div class="form-group mb-2" style="margin-left:12px">
+                                <label for="" class="sr-only"></label>
+                                -
+                            </div>
+                            <div class="form-group mb-2" style="margin-left:12px">
+                                <label for="" class="sr-only"></label>
+                                <input type="text" class="form-control" style="width:60px">
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Technical Specification row-->
+                    <div class="row" style="background:#F8F8F8; padding:5px;  border:1px solid #DEDEDE">
+
+                        <div class="col-sm" style="padding-top:5px;">
+                            <span style="font-weight:bold">Technical Specification</span>
+                        </div>
+
+                    </div>
+
+                    <!--Range block-->
+                    <div class="row" style="background:#F8F8F8; padding:5px;  border:0px 1px solid #DEDEDE">
+                        <div class="col-sm-12" style="text-align:center">
+                            <span style="text-align:center"><i class="fa fa-exchange fa-rotate-90"></i> Airflow (CFM)</span>
+
+                        </div>
+                    </div>
+
+
+                    <div class="row" style="background:#F8F8F8; padding:5px;  border:0px 1px solid #DEDEDE">
+                        <div class="col-sm-2" style="padding-top: 5px; padding-left:10px">
+                            <input type="text" class="form-control" style="width:50px; text-align:center; height:30px; padding:0px">
+                        </div>
+                        <div class="col-sm-8" style="padding-top:7px;">
+
+                            <input type="range" class="custom-range" id="customRange1">
+                        </div>
+                        <div class="col-sm-2" style="padding-top: 5px; padding-left:1px">
+                            <input type="text" class="form-control input-group-sm" style="width:50px; height:30px; padding:0px; text-align:center">
+                        </div>
+
+                    </div>
+
+                    <!--End of Range block-->
+                    <!--Range block-->
+                    <div class="row" style="background:#F8F8F8; padding:5px;  border:0px 1px solid #DEDEDE">
+                        <div class="col-sm-12" style="text-align:center">
+                            <span style="text-align:center"><i class="fa fa-exchange fa-rotate-90"></i> Max Power (W)</span>
+
+                        </div>
+                    </div>
+
+
+                    <div class="row" style="background:#F8F8F8; padding:5px;  border:0px 1px solid #DEDEDE">
+                        <div class="col-sm-2" style="padding-top: 5px; padding-left:10px">
+                            <input type="text" class="form-control" style="width:50px; text-align:center; height:30px; padding:0px">
+                        </div>
+                        <div class="col-sm-8" style="padding-top:7px;">
+
+                            <input type="range" class="custom-range" id="customRange1">
+                        </div>
+                        <div class="col-sm-2" style="padding-top: 5px; padding-left:1px">
+                            <input type="text" class="form-control input-group-sm" style="width:50px; height:30px; padding:0px; text-align:center">
+                        </div>
+
+                    </div>
+
+                    <!--End of Range block-->
+                    <!--Range block-->
+                    <div class="row" style="background:#F8F8F8; padding:5px;  border:0px 1px solid #DEDEDE">
+                        <div class="col-sm-12" style="text-align:center">
+                            <span style="text-align:center"><i class="fa fa-exchange fa-rotate-90"></i> Sound at max speed (dBA)</span>
+
+                        </div>
+                    </div>
+
+
+                    <div class="row" style="background:#F8F8F8; padding:5px;  border:0px 1px solid #DEDEDE">
+                        <div class="col-sm-2" style="padding-top: 5px; padding-left:10px">
+                            <input type="text" class="form-control" style="width:50px; text-align:center; height:30px; padding:0px">
+                        </div>
+                        <div class="col-sm-8" style="padding-top:7px;">
+
+                            <input type="range" class="custom-range" id="customRange1">
+                        </div>
+                        <div class="col-sm-2" style="padding-top: 5px; padding-left:1px">
+                            <input type="text" class="form-control input-group-sm" style="width:50px; height:30px; padding:0px; text-align:center">
+                        </div>
+
+                    </div>
+
+                    <!--End of Range block-->
+                    <!--Range block-->
+                    <div class="row" style="background:#F8F8F8; padding:5px;  border:0px 1px solid #DEDEDE">
+                        <div class="col-sm-12" style="text-align:center">
+                            <span style="text-align:center"><i class="fa fa-exchange fa-rotate-90"></i> Fan Sweep Diameter (in)</span>
+
+                        </div>
+                    </div>
+
+
+                    <div class="row" style="background:#F8F8F8; padding:5px;  border:0px 1px solid #DEDEDE">
+                        <div class="col-sm-2" style="padding-top: 5px; padding-left:10px">
+                            <input type="text" class="form-control" style="width:50px; text-align:center; height:30px; padding:0px">
+                        </div>
+                        <div class="col-sm-8" style="padding-top:7px;">
+
+                            <input type="range" class="custom-range" id="customRange1">
+                        </div>
+                        <div class="col-sm-2" style="padding-top: 5px; padding-left:1px">
+                            <input type="text" class="form-control input-group-sm" style="width:50px; height:30px; padding:0px; text-align:center">
+                        </div>
+
+                    </div>
+
+                    <!--End of Range block-->
+
+                </div>
+                <!-- -->
+
+
+                <div class="col-9" style="padding:6px; ">
+
+                    <div style="margin-bottom:3px;border-bottom:1px solid #F8F8F8; border-bottom:7px ">
+
+                        <span style="font-weight:bold">Category ></span>
+                        <span>Fan</span>
+
+                    </div>
+
+                    <div id="products-list-canvas">
+
+                        <span style="font-size:18px; font-style:italic">Fetching products via ajax ...</span>
+
+                        <!-- Card for items-->
+                        <!-- Card for items-->
+
+                    </div>
+
+                   
+
+               
+
+
+
+                </div>
+            </div>
+
+
+
+
+
+            <footer>
+                <p>&copy; @DateTime.Now.Year - MarketPlace</p>
+            </footer>
+        </div>
+
+
+    </div>
+
+
+
+
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryui")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/custom")
+
+
+    <script>
+
+        function loadProductJson() {
+            const queryString = window.location.search;
+            const urlParams = new URLSearchParams(queryString);
+            const productName = urlParams.get('searchitem')
+
+    
+
+            $.ajax({
+                url: "/Search/GetProductsJson/",
+                type: "POST",
+                dataType: "json",
+                data: { productName },
+                success: function (data) {
+
+
+                    document.getElementById("products-list-canvas").innerHTML = "";
+
+                    data.forEach(function (item) {
+                        console.log(item);
+
+                        var product_card = "<div class='card' style='width: 15rem; cursor:pointer; float:left; margin-right:10px; margin-bottom:15px;'> <img  iindex='" + item.ProductID + "' class='card-img-top img-thumbnail prod-items' src='/Images/Products/" + item.Picture + "' alt='Card image cap'> <div class='card-body'> <h6 class='card-title text-center'>" + item.ProductName + "</h6> <h6 class='card-title text-center'>" + item.Series + "</h6> <h6 class='card-title text-center'>" + item.ModelName + "</h6> <p class='card-text text-center'>" + item.Airflow + " CFM</p> <p class='card-text text-center'>" + item.Fan_Speed_Max + " at Max Speed</p> <p class='card-text text-center'>" + item.Sound_Max_Speed + " dbA at max speed</p> <p class='card-text text-center'>" + item.Fan_Sweep_Diameter+" sweep diameter</p> <div class='form-check'> <input class='form-check-input chkitem' type='checkbox' value='" + item.ProductID + "'> <label class='form-check-label' for='defaultCheck1'> <span style='font-weight:bold'>Compare</span> </label> <a href='#' class='btn btn-primary pull-right btn-sm'>Add to</a> </div>";
+
+                        $("#products-list-canvas").append(product_card);;
+                    });
+
+
+
+                }
+            })
+        }
+
+
+        setTimeout(loadProductJson, 2000);
+
+
+
+        $(document).on("click", ".prod-items", function () {
+        
+            var productid = $(this).attr('iindex');
+            window.location.href = "/Products/ProductDetail/?pid=" + productid;
+
+            //End of ajax
+        });
+
+
+
+      
+
+    </script>
+
+</body>
+
+</html>
